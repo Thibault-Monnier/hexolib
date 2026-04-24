@@ -2,6 +2,15 @@
 
 TypeScript utility library for HeXO game websites and tooling.
 
+## Features
+
+More to come, but currently includes:
+
+- `hgn` module (HeXO Game Notation)
+    - Parse HGN strings to `HGN` object
+    - Write HGN strings from `HGN` object
+    - `HGN` TypeScript type definition
+
 ## Install
 
 npm
