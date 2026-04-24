@@ -3,12 +3,12 @@
 ## Code Example
 
 ```ts
-import {type HGN, HGNParser, HGNWriter} from 'hexolib/hgn';
+import {type HGN, Parser, Writer} from 'hexolib/hgn';
 
-const hgnParser = new HGNParser('[name "Closed Game"] 0. (0, 0) 1. (1, 0) (-1, 1)');
+const hgnParser = new Parser('[name "Closed Game"] 0. (0, 0) 1. (1, 0) (-1, 1)');
 const parsedHgn: HGN = hgnParser.parse();
 
-const hgnWriter = new HGNWriter({
+const hgnWriter = new Writer({
     metadata: {matchName: 'Closed Game'},
     turns: [
         {turnNumber: 0, first: {x: 0, y: 0}},

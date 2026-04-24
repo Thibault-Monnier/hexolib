@@ -1,7 +1,7 @@
 import { HGNKeysMap } from './rawSymbols';
 import { type HGN, type Metadata } from './types';
 
-export class HGNWriter {
+export class Writer {
     private readonly hgn: HGN;
     private lines: string[] = [];
 

@@ -14,7 +14,7 @@ export class HGNParsingError extends Error {
     }
 }
 
-export class HGNParser {
+export class Parser {
     private readonly str: string;
     private currIndex = 0;
     private hgn: HGN = {

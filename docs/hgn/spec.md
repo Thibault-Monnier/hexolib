@@ -61,7 +61,7 @@ All attributes are optional.
               | '0-1' // Player 2 wins
               | '1/2-1/2' // Draw
               | '*' // Unfinished or unknown result
-<endreason>   ::= 'win' | 'time' | 'resign' | 'agreed-draw'
+<endreason>   ::= 'win' | 'timeout' | 'resignation' | 'agreed-draw'
 ```
 
 ## Turns
@@ -82,10 +82,10 @@ as: `(q, r)`.
 [result "1/2-1/2"]
 [endreason "agreed-draw"]
 
- 0. (0,0)
- 1. (-1,0)(0,1)
- 2. (-1,1)(-2,2)
- 3. (1,-1)(-5,5)
- 4. (-1,2)(1,0)
- 5. (5,0)(-3,2)
+ 0. (0, 0)
+ 1. (-1, 0) (0, 1)
+ 2. (-1, 1) (-2, 2)
+ 3. (1, -1) (-5, 5)
+ 4. (-1, 2) (1, 0)
+ 5. (5, 0) (-3, 2)
 ```

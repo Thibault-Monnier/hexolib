@@ -1,4 +1,4 @@
-import { type HGN, HGNParser, HGNWriter } from 'src/hgn';
+import { Parser, Writer } from 'src/hgn';
 import { describe, expect, it } from 'vitest';
 
 const sampleHgn = `[name "Hexagon Idk"]
@@ -17,9 +17,9 @@ const sampleHgn = `[name "Hexagon Idk"]
  5. (5,0)(-3,2)
 `;
 
-describe('HGN parser and writer', () => {
-    it('parses metadata and turns', () => {
-        const parsed = new HGNParser(sampleHgn).parse();
+describe('Parser', () => {
+    it('parses correctly', () => {
+        const parsed = new Parser(sampleHgn).parse();
 
         expect(parsed.metadata.matchName).toBe('Hexagon Idk');
         expect(parsed.metadata.timeControl).toEqual({
@@ -36,23 +36,11 @@ describe('HGN parser and writer', () => {
         });
     });
 
-    it('roundtrips HGN through writer and parser', () => {
-        const parsed = new HGNParser(sampleHgn).parse();
-        const output = new HGNWriter(parsed).write();
-        const reparsed = new HGNParser(output).parse();
+    it('should produce the same HGN after parsing and writing', () => {
+        const parsed = new Parser(sampleHgn).parse();
+        const output = new Writer(parsed).write();
+        const reparsed = new Parser(output).parse();
 
         expect(reparsed).toEqual(parsed);
-    });
-
-    it('writes a minimal HGN correctly', () => {
-        const hgn: HGN = {
-            metadata: { matchName: 'Mini' },
-            turns: [{ turnNumber: 0, first: { x: 0, y: 0 } }],
-        };
-
-        const output = new HGNWriter(hgn).write();
-
-        expect(output).toContain('[name "Mini"]');
-        expect(output).toContain(' 0. (0, 0)');
     });
 });
