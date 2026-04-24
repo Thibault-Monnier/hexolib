@@ -1,0 +1,50 @@
+{
+    "name": "hexolib",
+    "version": "0.1.0",
+    "description": "TypeScript utilities for building websites and tooling around the HeXO game.",
+    "license": "MIT",
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./hgn": {
+            "types": "./dist/hgn/index.d.ts",
+            "import": "./dist/hgn/index.js",
+            "require": "./dist/hgn/index.cjs"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": ">=20.0.0"
+    },
+    "scripts": {
+        "build": "tsup src/index.ts src/hgn/index.ts --format esm,cjs --dts --clean",
+        "dev": "tsup src/index.ts src/hgn/index.ts --format esm,cjs --dts --watch",
+        "lint": "eslint .",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "format": "prettier --write .",
+        "check": "yarn lint && yarn test && yarn build",
+        "prepare": "npm run build"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.26.0",
+        "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+        "eslint": "^9.26.0",
+        "eslint-config-prettier": "^9.1.0",
+        "prettier": "^3.5.3",
+        "tsup": "^8.5.0",
+        "typescript": "^5.8.3",
+        "typescript-eslint": "^8.32.1",
+        "vitest": "^2.1.9"
+    },
+    "packageManager": "yarn@4.9.1"
+}
