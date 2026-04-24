@@ -6,8 +6,8 @@ import {
     RESULTS,
     type Result,
     type TimeControl,
-} from './types';
-import { type HGNAllowedKeys } from './types2';
+} from './hgnTypes';
+import { type HGNAllowedKeys } from './types';
 
 export class HGNParsingError extends Error {
     public constructor(message: string) {

@@ -1,5 +1,5 @@
-import { type HGN, type Metadata } from './types';
-import { HGNKeysMap } from './types2';
+import { type HGN, type Metadata } from './hgnTypes';
+import { HGNKeysMap } from './types';
 
 export class HGNWriter {
     private readonly hgn: HGN;
