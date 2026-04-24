@@ -1,1 +1,1 @@
-export * as hgn from './hgn';
+export * as hgn from './hgn/index';

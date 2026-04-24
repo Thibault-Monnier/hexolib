@@ -20,4 +20,4 @@ const hgnStr = hgnWriter.write();
 
 ## Type Definitions
 
-Type definitions are located in [`src/hgn/hgnTypes.ts`](../../src/hgn/hgnTypes.ts).
+Type definitions are located in [`src/hgn/types.ts`](../../src/hgn/types.ts).

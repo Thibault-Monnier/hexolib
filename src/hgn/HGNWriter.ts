@@ -1,5 +1,5 @@
-import { type HGN, type Metadata } from './hgnTypes';
-import { HGNKeysMap } from './types';
+import { HGNKeysMap } from './rawSymbols';
+import { type HGN, type Metadata } from './types';
 
 export class HGNWriter {
     private readonly hgn: HGN;
@@ -36,8 +36,8 @@ export class HGNWriter {
                         valueStr = '0';
                         break;
                 }
-            } else if (key === 'unixTimestamp') {
-                const date = new Date(this.hgn.metadata.unixTimestamp!);
+            } else if (key === 'unixTimestampMs') {
+                const date = new Date(this.hgn.metadata.unixTimestampMs!);
                 // Format as "YYYY-MM-DD HH:MM:SS"
                 valueStr = date.toISOString().replace('T', ' ').substring(0, 19);
             } else {

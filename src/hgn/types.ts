@@ -1,13 +1,45 @@
-import { type Metadata } from './hgnTypes';
+import { ENDING_CONDITIONS, RESULTS } from 'src/hgn/rawSymbols';
 
-export const HGNKeysMap = {
-    matchName: 'name',
-    player1Name: 'player1',
-    player2Name: 'player2',
-    unixTimestamp: 'utcdatetime',
-    timeControl: 'timecontrol',
-    result: 'result',
-    endingCondition: 'endreason',
-} as const satisfies Record<keyof Metadata, string>;
+export type Coordinate = {
+    x: number;
+    y: number;
+};
 
-export type HGNAllowedKeys = (typeof HGNKeysMap)[keyof typeof HGNKeysMap];
+export type Turn = {
+    turnNumber: number;
+    first: Coordinate;
+    second?: Coordinate;
+    threatsCount?: number;
+};
+
+export type TimeControl =
+    | {
+          mode: 'match';
+          initialTime: number;
+          increment: number;
+      }
+    | {
+          mode: 'turn';
+          timePerTurn: number;
+      }
+    | {
+          mode: 'unlimited';
+      };
+
+export type Result = (typeof RESULTS)[number];
+export type EndingCondition = (typeof ENDING_CONDITIONS)[number];
+
+export type Metadata = {
+    matchName?: string;
+    player1Name?: string;
+    player2Name?: string;
+    unixTimestampMs?: number;
+    timeControl?: TimeControl;
+    result?: Result;
+    endingCondition?: EndingCondition;
+};
+
+export type HGN = {
+    metadata: Metadata;
+    turns: Turn[];
+};

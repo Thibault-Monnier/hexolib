@@ -1,13 +1,11 @@
+import { ENDING_CONDITIONS, type HGNAllowedKeys, RESULTS } from './rawSymbols';
 import {
     type Coordinate,
-    ENDING_CONDITIONS,
     type EndingCondition,
     type HGN,
-    RESULTS,
     type Result,
     type TimeControl,
-} from './hgnTypes';
-import { type HGNAllowedKeys } from './types';
+} from './types';
 
 export class HGNParsingError extends Error {
     public constructor(message: string) {
@@ -121,7 +119,7 @@ export class HGNParser {
                     metadata.player2Name = value;
                     break;
                 case 'utcdatetime':
-                    metadata.unixTimestamp = this.parseDateTime(value);
+                    metadata.unixTimestampMs = this.parseDateTime(value);
                     break;
                 case 'timecontrol':
                     metadata.timeControl = this.parseTimeControl(value);
