@@ -63,8 +63,7 @@ export class Writer {
 
             if (turn.second) {
                 const second = this.formatCoordinate(turn.second);
-                const threatsIndicator = '!'.repeat(turn.threatsCount ?? 0);
-                this.lines.push(` ${turnNumber}. ${first} ${second} ${threatsIndicator}`);
+                this.lines.push(` ${turnNumber}. ${first} ${second}`);
             } else {
                 this.lines.push(` ${turnNumber}. ${first}`);
             }
