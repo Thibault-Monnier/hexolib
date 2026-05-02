@@ -9,6 +9,7 @@ More to come, but currently includes:
 - `hgn` module (HeXO Game Notation) - [more details](./docs/hgn/usage.md)
     - Parse HGN strings to `HGN` object
     - Write HGN strings from `HGN` object
+    - Validate `HGN` object correctness
     - `HGN` TypeScript type definition
 
 ## Install
