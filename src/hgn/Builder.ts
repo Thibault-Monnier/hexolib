@@ -22,9 +22,11 @@ export class Builder {
         return this;
     }
 
-    public build(): HGN {
-        const analyser = new Analyser(this.hgn);
-        analyser.check();
+    public build(analyse = true): HGN {
+        if (analyse) {
+            const analyser = new Analyser(this.hgn);
+            analyser.analyse();
+        }
 
         return this.hgn;
     }

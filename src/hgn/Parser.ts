@@ -25,9 +25,15 @@ export class Parser {
         return this.str[this.currIndex];
     }
 
-    public parse(): HGN {
+    public parse(analyse = true): HGN {
         this.parseMetadata();
         this.parseTurns();
+
+        if (analyse) {
+            const analyser = new Analyser(this.hgn);
+            analyser.analyse();
+        }
+
         return this.hgn;
     }
 
