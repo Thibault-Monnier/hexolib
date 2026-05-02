@@ -26,10 +26,9 @@ copies or substantial portions of the Software.
 
 <turns>       ::= <partial_turn> <turn>* <partial_turn>?
 <partial_turn> ::= <turn_number> <coordinate>
-<turn>        ::= <turn_number> <coordinate> <coordinate> <amount_of_threats>?
+<turn>        ::= <turn_number> <coordinate> <coordinate>
 <turn_number> ::= <nonnegative_integer> '.' // starts with 0 and increments by 1 for each turn / partial turn.
 <coordinate>  ::= '(' <integer> ',' <integer> ')'
-<amount_of_threats> ::= '!'* // each '!' represents a threat (optional).
 
 <integer>     ::= <sign> <nonnegative_integer>
 <sign>        ::= '-'?
@@ -60,7 +59,6 @@ All attributes are optional.
 <result>      ::= '1-0' // Player 1 wins
               | '0-1' // Player 2 wins
               | '1/2-1/2' // Draw
-              | '*' // Unfinished or unknown result
 <endreason>   ::= 'win' | 'timeout' | 'resignation' | 'agreed-draw'
 ```
 

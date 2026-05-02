@@ -1,4 +1,4 @@
-import { ENDING_CONDITIONS, RESULTS } from 'src/hgn/rawSymbols';
+import type { ENDING_CONDITIONS, RESULTS } from 'src/hgn/rawSymbols';
 
 export type Coordinate = {
     x: number;
@@ -9,7 +9,6 @@ export type Turn = {
     turnNumber: number;
     first: Coordinate;
     second?: Coordinate;
-    threatsCount?: number;
 };
 
 export type TimeControl =

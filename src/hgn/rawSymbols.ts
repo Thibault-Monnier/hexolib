@@ -12,6 +12,6 @@ export const HGNKeysMap = {
 
 export type HGNAllowedKeys = (typeof HGNKeysMap)[keyof typeof HGNKeysMap];
 
-export const RESULTS = ['1-0', '0-1', '1/2-1/2', '*'] as const;
+export const RESULTS = ['1-0', '0-1', '1/2-1/2'] as const;
 
 export const ENDING_CONDITIONS = ['win', 'timeout', 'resignation', 'agreed-draw'] as const;
