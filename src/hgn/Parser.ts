@@ -216,13 +216,11 @@ export class Parser {
 
             const first = this.parseCoordinate();
             const second = this.parseCoordinate(true);
-            const threatsCount = second ? this.parseThreatsCount() : null;
 
             this.hgn.turns.push({
                 turnNumber,
                 first,
                 ...(second ? { second } : {}),
-                ...(threatsCount ? { threatsCount } : {}),
             });
         }
     }
@@ -249,17 +247,5 @@ export class Parser {
         const y = parseTerm(')');
 
         return { x, y };
-    }
-
-    private parseThreatsCount(): number {
-        this.skipWhitespace();
-
-        let counter = 0;
-        while (this.advanceIf('!')) {
-            counter++;
-            this.skipWhitespace();
-        }
-
-        return counter;
     }
 }
