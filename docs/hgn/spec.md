@@ -1,5 +1,3 @@
-
-
 # HeXO Game Notation (HGN)
 
 ## Grammar
