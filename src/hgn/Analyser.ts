@@ -211,11 +211,6 @@ export class Analyser {
                 );
             }
         } else {
-            if (result === '1-0' || result === '0-1') {
-                throw new HGNAnalysisError(
-                    `Invalid HGN: found game result "${result}", but the game did not end with a winner.`,
-                );
-            }
             if (endingCondition === 'win') {
                 throw new HGNAnalysisError(
                     `Invalid HGN: found ending condition "${endingCondition}", but the game did not end with a winner.`,
