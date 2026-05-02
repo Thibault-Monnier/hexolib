@@ -1,11 +1,6 @@
-import { ENDING_CONDITIONS, type HGNAllowedKeys, RESULTS } from './rawSymbols';
-import {
-    type Coordinate,
-    type EndingCondition,
-    type HGN,
-    type Result,
-    type TimeControl,
-} from './types';
+import { Analyser } from 'src/hgn/Analyser';
+import { END_REASONS, type HGNAllowedKeys, RESULTS } from './rawSymbols';
+import { type Coordinate, type EndReason, type HGN, type Result, type TimeControl } from './types';
 
 export class HGNParsingError extends Error {
     public constructor(message: string) {
@@ -43,7 +38,9 @@ export class Parser {
         }
 
         if (expectedChar !== undefined && prevChar !== expectedChar) {
-            throw new HGNParsingError(`Invalid HGN: expected '${expectedChar}', got '${prevChar}'.`);
+            throw new HGNParsingError(
+                `Invalid HGN: expected '${expectedChar}', got '${prevChar}'.`,
+            );
         }
 
         this.currIndex++;
@@ -128,7 +125,7 @@ export class Parser {
                     metadata.result = this.parseResult(value);
                     break;
                 case 'endreason':
-                    metadata.endingCondition = this.parseEndingCondition(value);
+                    metadata.endReason = this.parseEndReason(value);
                     break;
                 default: {
                     key satisfies never;
@@ -176,12 +173,12 @@ export class Parser {
         }
     }
 
-    private parseEndingCondition(value: string): EndingCondition {
-        const isValidEndingCondition = (value: string): value is EndingCondition => {
-            return (ENDING_CONDITIONS as readonly string[]).includes(value);
+    private parseEndReason(value: string): EndReason {
+        const isValidEndReason = (value: string): value is EndReason => {
+            return (END_REASONS as readonly string[]).includes(value);
         };
 
-        if (!isValidEndingCondition(value)) {
+        if (!isValidEndReason(value)) {
             throw new HGNParsingError(`Invalid HGN: invalid end reason '${value}'.`);
         }
         return value;

@@ -1,5 +1,5 @@
-import { Parser } from 'src/hgn';
 import { Builder } from 'src/hgn/Builder';
+import { Parser } from 'src/hgn/Parser';
 import { describe, expect, it } from 'vitest';
 
 export const sampleHgn = `[name "Hexagon Idk"]
@@ -29,7 +29,7 @@ describe('Builder', () => {
                 timeControl: { mode: 'unlimited' },
                 result: '1-0',
             })
-            .addMetadataAttribute('endingCondition', 'timeout')
+            .addMetadataAttribute('endReason', 'timeout')
             .addTurn({ turnNumber: 0, first: { x: 0, y: 0 } })
             .addTurn({
                 turnNumber: 1,

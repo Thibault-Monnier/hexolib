@@ -1,4 +1,4 @@
-import type { ENDING_CONDITIONS, RESULTS } from 'src/hgn/rawSymbols';
+import type { END_REASONS, RESULTS } from 'src/hgn/rawSymbols';
 
 export type Coordinate = {
     x: number;
@@ -26,7 +26,7 @@ export type TimeControl =
       };
 
 export type Result = (typeof RESULTS)[number];
-export type EndingCondition = (typeof ENDING_CONDITIONS)[number];
+export type EndReason = (typeof END_REASONS)[number];
 
 export type Metadata = {
     matchName?: string;
@@ -35,7 +35,7 @@ export type Metadata = {
     unixTimestampMs?: number;
     timeControl?: TimeControl;
     result?: Result;
-    endingCondition?: EndingCondition;
+    endReason?: EndReason;
 };
 
 export type HGN = {

@@ -1,4 +1,4 @@
-import type { Coordinate, EndingCondition, HGN, Result, Turn } from 'src/hgn/types';
+import type { Coordinate, EndReason, HGN, Result, Turn } from 'src/hgn/types';
 
 export class HGNAnalysisError extends Error {
     public constructor(message: string) {
@@ -23,7 +23,7 @@ export class Analyser {
         this.hgn = hgn;
     }
 
-    public check(): void {
+    public analyse(): void {
         this.checkTurnNumbers();
 
         for (const turn of this.hgn.turns) {
@@ -153,45 +153,42 @@ export class Analyser {
         return false;
     }
 
-    /** Checks if the game result is valid and if the ending condition is consistent. If none are provided, sets them as accurately as possible. */
+    /** Checks if the game result is valid and if the end reason is consistent. If none are provided, sets them as accurately as possible. */
     private checkGameEnding(): void {
         let result = this.hgn.metadata.result;
-        const endingCondition = this.hgn.metadata.endingCondition;
+        const endReason = this.hgn.metadata.endReason;
 
         if (this.isGameEnded && !result) {
             result = this.getGameWinner() === 'x' ? '1-0' : '0-1';
-        } else if (endingCondition === 'agreed-draw' && !result) {
+        } else if (endReason === 'agreed-draw' && !result) {
             result = '1/2-1/2';
         }
 
-        if (result === '1/2-1/2' && !endingCondition) {
-            this.hgn.metadata.endingCondition = 'agreed-draw';
+        if (result === '1/2-1/2' && !endReason) {
+            this.hgn.metadata.endReason = 'agreed-draw';
         }
 
-        this.checkResultAndEndingConditionCompatibleWithGameEnded(result, endingCondition);
-        this.checkCompatibleResultAndEndingCondition(result, endingCondition);
+        this.checkResultAndEndReasonCompatibleWithGameEnded(result, endReason);
+        this.checkCompatibleResultAndEndReason(result, endReason);
 
         if (this.hgn.metadata.result && this.hgn.metadata.result !== result) {
             throw new Error(
                 `Assertion failure: expected result "${result}", got "${this.hgn.metadata.result}".`,
             );
         }
-        if (
-            this.hgn.metadata.endingCondition &&
-            this.hgn.metadata.endingCondition !== endingCondition
-        ) {
+        if (this.hgn.metadata.endReason && this.hgn.metadata.endReason !== endReason) {
             throw new Error(
-                `Assertion failure: expected ending condition "${endingCondition}", got "${this.hgn.metadata.endingCondition}".`,
+                `Assertion failure: expected end reason "${endReason}", got "${this.hgn.metadata.endReason}".`,
             );
         }
 
         if (result) this.hgn.metadata.result = result;
-        if (endingCondition) this.hgn.metadata.endingCondition = endingCondition;
+        if (endReason) this.hgn.metadata.endReason = endReason;
     }
 
-    private checkResultAndEndingConditionCompatibleWithGameEnded(
+    private checkResultAndEndReasonCompatibleWithGameEnded(
         result: Result | undefined,
-        endingCondition: EndingCondition | undefined,
+        endReason: EndReason | undefined,
     ): void {
         if (this.isGameEnded) {
             const winner = this.getGameWinner()! === 'x' ? 'player 1' : 'player 2';
@@ -205,31 +202,31 @@ export class Analyser {
                     `Invalid HGN: found game result "${result}", but the game ended with a win for ${winner}.`,
                 );
             }
-            if (endingCondition && endingCondition !== 'win') {
+            if (endReason && endReason !== 'win') {
                 throw new HGNAnalysisError(
-                    `Invalid HGN: found ending condition "${endingCondition}", but the game ended with a win for ${winner}.`,
+                    `Invalid HGN: found end reason "${endReason}", but the game ended with a win for ${winner}.`,
                 );
             }
         } else {
-            if (endingCondition === 'win') {
+            if (endReason === 'win') {
                 throw new HGNAnalysisError(
-                    `Invalid HGN: found ending condition "${endingCondition}", but the game did not end with a winner.`,
+                    `Invalid HGN: found end reason "${endReason}", but the game did not end with a winner.`,
                 );
             }
         }
     }
 
-    private checkCompatibleResultAndEndingCondition(
+    private checkCompatibleResultAndEndReason(
         result: Result | undefined,
-        endingCondition: EndingCondition | undefined,
+        endReason: EndReason | undefined,
     ): void {
-        if (result && endingCondition) {
+        if (result && endReason) {
             if (
-                (result === '1/2-1/2' && endingCondition !== 'agreed-draw') ||
-                (result !== '1/2-1/2' && endingCondition === 'agreed-draw')
+                (result === '1/2-1/2' && endReason !== 'agreed-draw') ||
+                (result !== '1/2-1/2' && endReason === 'agreed-draw')
             ) {
                 throw new HGNAnalysisError(
-                    `Invalid HGN: game result "${result}" is incompatible with ending condition "${endingCondition}.`,
+                    `Invalid HGN: game result "${result}" is incompatible with end reason "${endReason}.`,
                 );
             }
         }
