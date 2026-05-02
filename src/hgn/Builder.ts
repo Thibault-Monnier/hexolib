@@ -1,4 +1,5 @@
-import { HGN, Metadata, Turn } from 'src/hgn/types';
+import { Analyser } from 'src/hgn/Analyser';
+import type { HGN, Metadata, Turn } from 'src/hgn/types';
 
 export class Builder {
     private hgn: HGN = {
@@ -22,6 +23,9 @@ export class Builder {
     }
 
     public build(): HGN {
+        const analyser = new Analyser(this.hgn);
+        analyser.check();
+
         return this.hgn;
     }
 }

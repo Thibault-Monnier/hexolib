@@ -39,11 +39,11 @@ export class Parser {
     private advance(expectedChar?: string): string {
         const prevChar = this.char;
         if (prevChar === undefined) {
-            throw new HGNParsingError('Invalid HGN: unexpected end of string');
+            throw new HGNParsingError('Invalid HGN: unexpected end of string.');
         }
 
         if (expectedChar !== undefined && prevChar !== expectedChar) {
-            throw new HGNParsingError(`Invalid HGN: expected '${expectedChar}', got '${prevChar}'`);
+            throw new HGNParsingError(`Invalid HGN: expected '${expectedChar}', got '${prevChar}'.`);
         }
 
         this.currIndex++;
@@ -72,7 +72,7 @@ export class Parser {
         return this.readWhile((char: string): boolean => {
             if (forbiddenCharacters?.includes(char)) {
                 throw new HGNParsingError(
-                    `Invalid HGN: unexpected character '${this.char}' at position ${this.currIndex}`,
+                    `Invalid HGN: unexpected character '${this.char}' at position ${this.currIndex}.`,
                 );
             }
             return !delimiters.includes(char);
@@ -87,7 +87,7 @@ export class Parser {
         const val = Number(str);
         if (Number.isNaN(val) || !Number.isSafeInteger(val)) {
             throw new HGNParsingError(
-                `Invalid HGN: ${errorLocation} should be an integer, got '${str}'`,
+                `Invalid HGN: ${errorLocation} should be an integer, got '${str}'.`,
             );
         }
         return val;
@@ -132,7 +132,7 @@ export class Parser {
                     break;
                 default: {
                     key satisfies never;
-                    throw new HGNParsingError(`Invalid HGN: unexpected metadata key '${rawKey}'`);
+                    throw new HGNParsingError(`Invalid HGN: unexpected metadata key '${rawKey}'.`);
                 }
             }
 
@@ -144,7 +144,7 @@ export class Parser {
         const dateStr = value.trim().replace(' ', 'T') + 'Z';
         const timestamp = Date.parse(dateStr);
         if (Number.isNaN(timestamp)) {
-            throw new HGNParsingError(`Invalid HGN: invalid date-time '${value}'`);
+            throw new HGNParsingError(`Invalid HGN: invalid date-time '${value}'.`);
         }
         return timestamp;
     }
@@ -172,7 +172,7 @@ export class Parser {
                 increment,
             };
         } else {
-            throw new HGNParsingError('Invalid HGN: time control should have at most 2 values');
+            throw new HGNParsingError('Invalid HGN: time control should have at most 2 values.');
         }
     }
 
@@ -182,7 +182,7 @@ export class Parser {
         };
 
         if (!isValidEndingCondition(value)) {
-            throw new HGNParsingError(`Invalid HGN: invalid end reason '${value}'`);
+            throw new HGNParsingError(`Invalid HGN: invalid end reason '${value}'.`);
         }
         return value;
     }
@@ -193,7 +193,7 @@ export class Parser {
         };
 
         if (!isValidResult(value)) {
-            throw new HGNParsingError(`Invalid HGN: invalid result '${value}'`);
+            throw new HGNParsingError(`Invalid HGN: invalid result '${value}'.`);
         }
         return value;
     }
@@ -205,7 +205,7 @@ export class Parser {
 
             if (turnNumber !== i) {
                 throw new HGNParsingError(
-                    `Invalid HGN: expected turn number ${i}, got ${turnNumber}`,
+                    `Invalid HGN: expected turn number ${i}, got ${turnNumber}.`,
                 );
             }
 

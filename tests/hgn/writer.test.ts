@@ -1,4 +1,4 @@
-import { HGN, Writer } from 'src/hgn';
+import { type HGN, Writer } from 'src/hgn';
 import { describe, expect, it } from 'vitest';
 
 describe('Writer', () => {
